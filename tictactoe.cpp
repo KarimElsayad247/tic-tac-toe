@@ -25,7 +25,7 @@ board::board(int preferredWidth, int preferredHeight) {
     gameRunningStatus = true;
 }
 
-void board::play(char location) {
+void board::play(int location) {
     if (location != 'e') {
         if (boardState[location] == ' ') {
 
@@ -97,28 +97,28 @@ void board::printBoard() {
 }
 
 void board::printCharacter(int x, int y) {
-    if (y == (height - height/5)) {
-        if (x == (width - width/5) )
+    if (y == height/6) {
+        if(x == width/6)
             cout << boardState[0];
         else if (x == width/2)
             cout << boardState[1];
-        else if(x == width/6)
+        else if (x == (width - width/5) )
             cout << boardState[2];
     }
     else if (y == height/2) {
-        if (x == (width - width/5) )
+        if(x == width/6)
             cout << boardState[3];
         else if (x == width/2)
             cout << boardState[4];
-        else if(x == width/6)
+        else if (x == (width - width/5) )
             cout << boardState[5];
     }
-    else if (y == height/6) {
-        if (x == (width - width/5) )
+    else if (y == (height - height/5)) {
+        if(x == width/6)
             cout << boardState[6];
         else if (x == width/2)
             cout << boardState[7];
-        else if(x == width/6)
+        else if (x == (width - width/5) )
             cout << boardState[8];
     }
 }

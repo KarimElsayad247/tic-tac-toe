@@ -9,7 +9,7 @@ int main() {
     while (currentGame.isOngoing()) {
         currentGame.printBoard();
         cout << "Enter location [0-8]: ";
-        char location;
+        int location;
         cin >> location;
         currentGame.play(location);
     }

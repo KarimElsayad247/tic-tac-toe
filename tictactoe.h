@@ -16,7 +16,7 @@ private:
     void printCharacter(int x, int y);
     bool gameRunningStatus;
 public:
-    void play(char location);
+    void play(int location);
     void printBoard();
     board();
     board(int preferredWidth, int preferredHeight);
