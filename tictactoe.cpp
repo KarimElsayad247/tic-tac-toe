@@ -26,29 +26,43 @@ board::board(int preferredWidth, int preferredHeight) {
 }
 
 void board::play(int location) {
-    if (location != 'e') {
-        if (boardState[location] == ' ') {
+    if (boardState[location] == ' ') {
 
-            if (currentPlayer == 0)
-                boardState[location] = 'x';
-            else if (currentPlayer == 1)
-                boardState[location] = 'o';
-
-            currentPlayer = !currentPlayer;
-
-        } else {
-            cout << "invalid! try again" << endl;
+        for (std::size_t i = 0; i != 9; ++i) {
+            lastBoardState[i] = boardState[i];
         }
+
+        if (currentPlayer == 0)
+            boardState[location] = 'x';
+        else if (currentPlayer == 1)
+            boardState[location] = 'o';
+
+        currentPlayer = !currentPlayer;
+
     } else {
-        cout << "Ending game" << endl;
+        cout << "invalid! try again!" << endl;
+    }
+}
+
+void board::play(char location) {
+    if (location == 'e') {
+        cout << "Ending game!" << endl;
         gameRunningStatus = false;
     }
-
+    else if (location == 'z') {
+        cout << "Undoing last move" << endl;
+        for (std::size_t i = 0; i != 9; ++i) {
+            boardState[i] = lastBoardState[i];
+        }
+    }
+    else {
+        cout << "Invalid! try again!" << endl;
+    }
 }
 
 void board::printBoard() {
 
-    cout << "enter e to end game" << endl;
+    cout << "enter e to end game, z to undo" << endl;
 
     static string horizontalBorder(width, '-');
     static string horizontalBlank= string(width/3, ' ') + "|" +

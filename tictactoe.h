@@ -10,6 +10,7 @@
 class board {
 private:
     bool currentPlayer;
+    char lastBoardState[9];
     char boardState[9];
     int width;
     int height;
@@ -17,6 +18,7 @@ private:
     bool gameRunningStatus;
 public:
     void play(int location);
+    void play(char location);
     void printBoard();
     board();
     board(int preferredWidth, int preferredHeight);
