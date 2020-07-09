@@ -7,26 +7,21 @@
 
 using namespace std;
 
-board::board() : currentPlayer(false) {
-    for (std::size_t i = 0; i != 9; ++i) {
-        boardState[i] = ' ';
-    }
-    width = 22;
-    height = 11;
-    gameRunningStatus = true;
-}
-
 board::board(int preferredWidth, int preferredHeight) {
+    const char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     for (std::size_t i = 0; i != 9; ++i) {
-        boardState[i] = ' ';
+        boardState[i] = digits[i];
     }
     width = preferredWidth;
     height = preferredHeight;
     gameRunningStatus = true;
+    canUndo = false;
 }
 
 void board::play(int location) {
-    if (boardState[location] == ' ') {
+    if (isdigit(boardState[location])) {
+
+        canUndo = true;
 
         for (std::size_t i = 0; i != 9; ++i) {
             lastBoardState[i] = boardState[i];
@@ -50,9 +45,14 @@ void board::play(char location) {
         gameRunningStatus = false;
     }
     else if (location == 'z') {
-        cout << "Undoing last move" << endl;
-        for (std::size_t i = 0; i != 9; ++i) {
-            boardState[i] = lastBoardState[i];
+        if (canUndo) {
+            cout << "Undoing last move" << endl;
+            for (std::size_t i = 0; i != 9; ++i) {
+                boardState[i] = lastBoardState[i];
+                canUndo = false;
+            }
+        } else {
+            cout << "can't undo!" << endl;
         }
     }
     else {

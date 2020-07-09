@@ -16,12 +16,12 @@ private:
     int height;
     void printCharacter(int x, int y);
     bool gameRunningStatus;
+    bool canUndo;
 public:
     void play(int location);
     void play(char location);
     void printBoard();
-    board();
-    board(int preferredWidth, int preferredHeight);
+    board(int preferredWidth = 22, int preferredHeight = 11);
     bool isOngoing() const {return gameRunningStatus; };
 };
 
