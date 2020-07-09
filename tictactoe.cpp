@@ -7,6 +7,8 @@
 
 using namespace std;
 
+// setting up the game board with preferred width and height, otherwise default arguments are used.
+// all spots are numbered
 board::board(int preferredWidth, int preferredHeight) {
     const char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     for (std::size_t i = 0; i != 9; ++i) {
@@ -18,20 +20,29 @@ board::board(int preferredWidth, int preferredHeight) {
     canUndo = false;
 }
 
+// writes x or o depending on current player in the location provided
 void board::play(int location) {
+    // player can't overwrite an already used spot
+    // unused spots are marked with a digit
     if (isdigit(boardState[location])) {
 
+        // can undo after at least: 1 move
+        // - from game start
+        // - after last undo
         canUndo = true;
 
+        // save current board state for undo
         for (std::size_t i = 0; i != 9; ++i) {
             lastBoardState[i] = boardState[i];
         }
 
+        // update board state with provided input
         if (currentPlayer == 0)
             boardState[location] = 'x';
         else if (currentPlayer == 1)
             boardState[location] = 'o';
 
+        // change players
         currentPlayer = !currentPlayer;
 
     } else {
@@ -39,12 +50,15 @@ void board::play(int location) {
     }
 }
 
+// exit and undo
 void board::play(char location) {
+
     if (location == 'e') {
         cout << "Ending game!" << endl;
         gameRunningStatus = false;
     }
     else if (location == 'z') {
+        // players can only undo one move
         if (canUndo) {
             cout << "Undoing last move" << endl;
             for (std::size_t i = 0; i != 9; ++i) {
@@ -60,6 +74,7 @@ void board::play(char location) {
     }
 }
 
+// prints the board
 void board::printBoard() {
 
     cout << "enter e to end game, z to undo" << endl;
@@ -111,7 +126,7 @@ void board::printBoard() {
 }
 
 void board::printCharacter(int x, int y) {
-    if (y == height/6) {
+    if (y == height/6) {    // top line
         if(x == width/6)
             cout << boardState[0];
         else if (x == width/2)
@@ -119,7 +134,7 @@ void board::printCharacter(int x, int y) {
         else if (x == (width - width/5) )
             cout << boardState[2];
     }
-    else if (y == height/2) {
+    else if (y == height/2) { // middle line
         if(x == width/6)
             cout << boardState[3];
         else if (x == width/2)
@@ -127,7 +142,7 @@ void board::printCharacter(int x, int y) {
         else if (x == (width - width/5) )
             cout << boardState[5];
     }
-    else if (y == (height - height/5)) {
+    else if (y == (height - height/5)) {    // bottom line
         if(x == width/6)
             cout << boardState[6];
         else if (x == width/2)
