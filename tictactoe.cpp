@@ -70,6 +70,9 @@ void board::play(char location) {
             cout << "can't undo!" << endl;
         }
     }
+    else if (location == 'r') {
+        resetBoard();
+    }
     else {
         cout << "Invalid! try again!" << endl;
     }
@@ -78,7 +81,7 @@ void board::play(char location) {
 // prints the board
 void board::printBoard() {
 
-    cout << "enter e to end game, z to undo" << endl;
+    cout << "enter e to end game, z to undo, r to reset board to initial state" << endl;
 
     static string horizontalBorder(width, '-');
     static string horizontalBlank= string(width/3, ' ') + "|" +
@@ -150,6 +153,13 @@ void board::printCharacter(int x, int y) {
             cout << boardState[7];
         else if (x == (width - width/5) )
             cout << boardState[8];
+    }
+}
+
+void board::resetBoard() {
+    const char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    for (std::size_t i = 0; i != 9; ++i) {
+        boardState[i] = digits[i];
     }
 }
 

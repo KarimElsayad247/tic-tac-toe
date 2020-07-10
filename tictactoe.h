@@ -17,6 +17,7 @@ private:
     void printCharacter(int x, int y);
     bool gameRunningStatus;
     bool canUndo;
+    void resetBoard();
 public:
     void play(int location);
     void play(char location);
