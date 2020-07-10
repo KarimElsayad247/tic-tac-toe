@@ -18,6 +18,7 @@ board::board(int preferredWidth, int preferredHeight) {
     height = preferredHeight;
     gameRunningStatus = true;
     canUndo = false;
+    currentPlayer = 0;
 }
 
 // writes x or o depending on current player in the location provided
